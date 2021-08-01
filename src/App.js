@@ -57,7 +57,7 @@ const App = () => {
              });
      }
      const  handleLogout = () =>{
-         fire.auth.LogOut();
+         fire.auth().signOut();
      };
      const authListener = () =>{
          fire.auth().onAuthStateChanged(user =>{
