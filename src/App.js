@@ -2,6 +2,7 @@ import React,{useState, useEffect}from "react";
 import "./App.css";
 import fire from"./fire";
 import Login from"./Login";
+import Hero from"./Hero";
 const App = () => {
      const [user, setUser] =useState();
      const [email, setEmail] =useState();
@@ -56,7 +57,7 @@ const App = () => {
              });
      }
      const  handleLogout = () =>{
-         fire.auth.signOut();
+         fire.auth.LogOut();
      };
      const authListener = () =>{
          fire.auth().onAuthStateChanged(user =>{
@@ -69,7 +70,7 @@ const App = () => {
          })
      }
 
-useEffect(()=>{
+    useEffect(()=>{
 authListener();
 },[]);
 
@@ -77,17 +78,23 @@ authListener();
 
     return(
         <div className="App">
-            <Login
-            email={email}
-            password={password}
-            emailError={emailError}
-            handleLogin={handleLogin}
-            handleSignUp={handleSignUp}
-            passwordError={passwordError}
-            setPassword={setPassword}
-            hasAccount={hasAccount}
-            setHasAccount={setHasAccount}
-            />
+            {user ?(
+                <Hero handleLogout={handleLogout}/>
+            ):(
+                <Login
+                    email={email}
+                    password={password}
+                    emailError={emailError}
+                    handleLogin={handleLogin}
+                    handleSignUp={handleSignUp}
+                    passwordError={passwordError}
+                    setPassword={setPassword}
+                    setEmail={setEmail}
+                    hasAccount={hasAccount}
+                    setHasAccount={setHasAccount}
+                />
+            )}
+
         </div>
     );
  };
